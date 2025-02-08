@@ -1,4 +1,7 @@
 import cv2
+from ultralytics import YOLO
+
+model = YOLO("yolov8n.pt")
 
 image_path = "data/testikuva.jpg"
 image = cv2.imread(image_path)
@@ -6,5 +9,8 @@ image = cv2.imread(image_path)
 if image is None:
     print(f"Virhe: Kuvaa ei löydy polusta {image_path}")
 else:
-    cv2.imwrite("testikuva_naytto.png", image)  # Tallennetaan kuva
-    print("Kuva tallennettu nimellä testikuva_naytto.png, avaa se manuaalisesti.")
+    results = model(image_path)
+    
+    for result in results:
+        result.show()
+    print("Tunnistus valmis!")
