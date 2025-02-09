@@ -1,9 +1,9 @@
 import os
-from flask import Flask, request, render_template, send_file, jsonify
+from flask import Flask, request, render_template, send_file, jsonify, send_from_directory
 import cv2
 from ultralytics import YOLO
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="../frontend", static_url_path="")
 UPLOAD_FOLDER = "backend/uploads"
 PROCESSED_FOLDER = "backend/processed"
 os.makedirs(PROCESSED_FOLDER, exist_ok=True)
@@ -13,7 +13,7 @@ model = YOLO("yolov8n.pt")  # LATAA MALLI
 
 @app.route('/')
 def home():
-    return render_template("index.html")
+    return send_from_directory("../frontend", "index.html")
 
 @app.route("/upload", methods=["POST"])
 def upload():
@@ -41,7 +41,7 @@ def upload():
             # Piirrä laatikot kuvaan
             cv2.rectangle(image, (x1, y1), (x2, y2), (0, 255, 0), 2)
             cv2.putText(image, f"{label} {confidence:.2f}", (x1, y1 - 10),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
     processed_filepath = os.path.join(PROCESSED_FOLDER, f"processed_{file.filename}")
     cv2.imwrite(processed_filepath, image)
