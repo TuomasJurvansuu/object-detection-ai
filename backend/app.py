@@ -11,7 +11,20 @@ model = YOLO("yolov8n.pt") # LATAA MALLI
 
 @app.route('/')
 def home():
-    return "Tervetuloa objektintunnistuspalveluun!"
+    return render_template("index.html")
+
+
+@app.route("/upload", methods=["POST"])
+def upload():
+    if "file" not in request.files:
+        return "Ei tiedostoa!", 400
+
+    file = request.files["file"]
+    if file.filename == "":
+        return "Ei valittua tiedostoa!", 400
+
+    filepath = os.path.join(UPLOAD_FOLDER, file.filename)
+    file.save(filepath)
 
 if __name__ == '__main__':
     app.run(debug=True)
