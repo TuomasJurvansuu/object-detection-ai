@@ -35,8 +35,8 @@ def upload():
         for box in result.boxes:
             x1, y1, x2, y2 = map(int, box.xyxy[0])
             label = result.names[int(box.cls[0])]
-            confidence = box.conf[0].item()
-            detected_objects.append({"label": label, "confidence": confidence})
+            confidence = round(box.conf[0].item() * 100, 1)
+            detected_objects.append({"label": label, "confidence": f"{confidence}%"})
 
             # Piirrä laatikot kuvaan
             cv2.rectangle(image, (x1, y1), (x2, y2), (0, 255, 0), 2)
