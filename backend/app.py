@@ -1,6 +1,13 @@
-from flask import Flask
+import os
+from flask import Flask, request, render_template, jsonify
+import cv2
+from ultralytics import YOLO
 
 app = Flask(__name__)
+UPLOAD_FOLDER = "backend/uploads"
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+model = YOLO("yolov8n.pt") # LATAA MALLI
 
 @app.route('/')
 def home():
