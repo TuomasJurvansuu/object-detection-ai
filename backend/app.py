@@ -25,6 +25,14 @@ def upload():
 
     filepath = os.path.join(UPLOAD_FOLDER, file.filename)
     file.save(filepath)
+    
+    results = model(filepath)
+    detected_objects = []
+    for result in results:
+        for box in result.boxes:
+            detected_objects.append(result.names[int(box.cls)])
+
+    return jsonify({"message": "Tunnistus valmis!", "objects": detected_objects})
 
 if __name__ == '__main__':
     app.run(debug=True)
