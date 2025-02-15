@@ -8,11 +8,23 @@
 </head>
 <body>
     <h1>Lataa kuva objektintunnistusta varten</h1>
-    <input type="file" id="fileInput">
-    <button onclick="uploadImage()">Upload</button>
+    
+    <!-- Tiedoston valinta ja esikatselu -->
+    <input type="file" id="fileInput" onchange="updateFileName()">
+    <p id="fileName">Ei tiedostoa valittu</p>
+    
+    <button onclick="uploadImage()">Lataa kuva</button>
+    
     <p id="message"></p>
-    <img id="resultImage" style="display:none; max-width: 100%;">
+    <img id="resultImage" style="display:none; max-width: 100%;" alt="Tunnistettu objekti">
 
+    <script>
+        function updateFileName() {
+            const fileInput = document.getElementById('fileInput');
+            const fileNameDisplay = document.getElementById('fileName');
+            fileNameDisplay.textContent = fileInput.files[0] ? fileInput.files[0].name : "Ei tiedostoa valittu";
+        }
+    </script>
     <script src="script.js"></script>
 </body>
 </html>
