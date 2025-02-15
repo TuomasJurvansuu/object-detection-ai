@@ -13,10 +13,10 @@
     <input type="file" id="fileInput" onchange="updateFileName()">
     <p id="fileName">Ei tiedostoa valittu</p>
     
-    <button onclick="uploadImage()">Upload</button>
+    <button onclick="uploadImage()">Lataa kuva</button>
     
     <p id="message"></p>
-    <img id="resultImage" style="display:none; max-width: 100%;">
+    <img id="resultImage" style="display:none; max-width: 100%;" alt="Tunnistettu objekti">
 
     <script>
         function updateFileName() {
@@ -26,7 +26,5 @@
         }
     </script>
     <script src="script.js"></script>
-
-    <!-- Small update to trigger GitHub contribution -->
 </body>
 </html>
