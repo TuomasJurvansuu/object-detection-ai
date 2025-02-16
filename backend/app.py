@@ -11,11 +11,11 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 model = YOLO("yolov8n.pt")  # LATAA MALLI
 
-@app.route('/')
+@app.route("/", strict_slashes=False)
 def home():
     return send_from_directory("../frontend", "index.html")
 
-@app.route("/upload", methods=["POST"])
+@app.route("/upload", methods=["POST"], strict_slashes=False)
 def upload():
     if "file" not in request.files:
         return jsonify({"error": "Ei tiedostoa ladattu"}), 400
