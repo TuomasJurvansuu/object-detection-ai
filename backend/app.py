@@ -4,8 +4,8 @@ import cv2
 from ultralytics import YOLO
 
 app = Flask(__name__, static_folder="../frontend", static_url_path="")
-UPLOAD_FOLDER = "backend/uploads"
-PROCESSED_FOLDER = "backend/processed"
+UPLOAD_FOLDER = "data/uploads"
+PROCESSED_FOLDER = "data/processed"
 os.makedirs(PROCESSED_FOLDER, exist_ok=True)
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
